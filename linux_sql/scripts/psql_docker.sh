@@ -9,11 +9,11 @@ db_password=$3
 sudo systemctl status docker || sudo systemctl start docker
 
 # Check container status and store into container_status
-docker container inspect jrvs-psql
+docker container inspect jrvs-psql > /dev/null 2>&1
 container_status=$?
 
 # handles create/start/stop command
-case "$1" in
+case "$cmd" in
 	create)
 		# check whether a container exist
 		if [ $container_status -eq 0 ]; then
