@@ -8,9 +8,20 @@ The core technologies used which include **Bash scripting** for collecting host 
 # Quick Start
 1. Start a psql instance using psql_docker.sh
 ```
-./scripts/psql_docker.sh start|stop|create [db_username] [db_password]
+./scripts/psql_docker.sh start
+./scripts/psql_docker.sh stop
+./scripts/psql_docker.sh create db_username db_password
 ```
 2. Create tables using ddl.sql with database name host_agent
+- Create a host_agent database use psql CLI
+```
+-- connect to the psql instance
+psql -h localhost -U postgres -W
+
+-- create a database
+postgres=# CREATE DATABASE host_agent;
+```
+- Exit the psql then create host_info and host_usage tables, if not in linux_sql folder update sql/ddl.sql path
 ```
 psql -h psql_host -U psql_username -d host_agent -W -f sql/ddl.sql
 ```
@@ -18,7 +29,7 @@ psql -h psql_host -U psql_username -d host_agent -W -f sql/ddl.sql
 ```
 ./scripts/host_info.sh psql_host psql_port db_name psql_username psql_password
 ```
-4. Insert hardware usage data into the database using host_info.sh
+4. Insert hardware usage data into the database using host_usage.sh
 ```
 ./scripts/host_usage.sh psql_host psql_port db_name psql_username psql_password
 ```
